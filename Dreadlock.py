@@ -72,5 +72,3 @@ class Dreadlock:
         print('não posso alocar: total: ', self.vtRecursosExistentes[recursoAtual])
         print('pq o você quer alocar: ', self.vtQueroAlocar[recursoAtual])
         print();
-      
-dread = Dreadlock();
