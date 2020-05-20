@@ -9,14 +9,21 @@ class Dreadlock:
     self.recursos = 0;    
 
 
+  ## Metodo inicializador
   def run(self):
+    ##Entrada de dados de processo e recursos;
     self.entradaDeDados();
+    ## Entrada de dados de quantos recursos terão disponiveis
     self.recursosExistentes();
+
+    ## Enquanto res for "S" executamos a adição de pedidos de novos recursos.
     res = 'S'
     while res == 'S':
+      # Re processa a matriz
       self.processamentoMatriz();
-      res = str(input("Deseja continua a execução do programa? (S/N): ")).upper();
-
+      ## Pergunta se deseja continua
+      res = str(input("Deseja adicionar mais recursos aos processos? (S/N): ")).strip().upper()[0];
+      
   def recursosExistentes(self):
     self.vtRecursosExistentes = [0] * self.recursos;
 
@@ -68,12 +75,7 @@ class Dreadlock:
         # "encher" a mtzAlocacaoCorrente
 			  # atualizar vetor vtRecursosAlocados
         self.vtRecursosAlocados[recursoAtual] += qtdeRecursoParaAlocar;
-        #print('vtRecursosAlocados: ', self.vtRecursosAlocados[recursoAtual]);
-        #print('pode alocar: total: ', self.vtRecursosExistentes[recursoAtual])
-        #print('você pode alocar pq o total é: ', self.vtQueroAlocar[recursoAtual])
-        #print();
+        print('Você poderá alocar os recursos ({}) mas o total que poderá armazena é ({}).\n'.format(self.vtRecursosAlocados[recursoAtual], self.vtRecursosExistentes[recursoAtual]));
       else:
-        pass;
-        print('não posso alocar: total: ', self.vtRecursosExistentes[recursoAtual])
-        print('pq o você quer alocar: ', self.vtQueroAlocar[recursoAtual])
-        print();
+        print('Não é possível alocar mais recursos');
+        print('Você deseja alocar ({}) que será superior ao permitido que é ({}) no total.\n'.format(qtdeRecursoParaAlocar, self.vtRecursosExistentes[recursoAtual]));
