@@ -4,34 +4,40 @@ class Dreadlock:
   ##Construtor da classe;
   def __init__(self):
 
+    ##Variaveis
     self.processos = 0;
-    self.recursos = 0;
+    self.recursos = 0;    
 
-    self.entradaDeDados();    
 
+  def run(self):
+    self.entradaDeDados();
+    self.recursosExistentes();
+    res = 'S'
+    while res == 'S':
+      self.processamentoMatriz();
+      res = str(input("Deseja continua a execução do programa? (S/N): ")).upper();
 
   def recursosExistentes(self):
     self.vtRecursosExistentes = [0] * self.recursos;
 
     for recExistentes in range(0, len(self.vtRecursosExistentes)):
-      self.vtRecursosExistentes[recExistentes] = int(input("Digite o total de Recursos existentes na Posição({})".format(recExistentes)));
+      self.vtRecursosExistentes[recExistentes] = int(input("Digite o total de Recursos existentes na Posição({}): ".format(recExistentes)));
 
   def entradaDeDados(self):
 
     #pegando os valores dos inputs de processo e recursos
     totalProcess = int(input("Digite o total de processos: "));
     totalRecursos = int(input("Digite o total de recursos: "));
-
     ## setando os novos valores
     self.processos = totalProcess;
     self.recursos = totalRecursos;
 
-    # Recursos existentes.
-    self.recursosExistentes();
-
     ## matriz simples
     self.vtRecursosAlocados = [0] * self.recursos;
     self.vtQueroAlocar = [0] * self.recursos;
+    
+
+  def processamentoMatriz(self):
 
     #iniciado a matriz com colunas
     self.mtzRequisicoes = [];
@@ -46,11 +52,10 @@ class Dreadlock:
     for processos in range(0, self.processos):
       for recursos in range(0, self.recursos):
         self.mtzRequisicoes[processos][recursos] = int(input("Digite o total de recurso a ser alocado no Processo({}) e no Recurso({}): ".format(processos, recursos)));
-    print(self.mtzRequisicoes);
     self.matrizRequisicoes();
+
   def matrizRequisicoes(self):
     qtdeRecursoParaAlocar = 0;
-    podeAlocar = False;
 
     for recursoAtual in range(0, self.recursos):
       qtdeRecursoParaAlocar = 0;
@@ -62,13 +67,13 @@ class Dreadlock:
       if self.vtRecursosExistentes[recursoAtual] >= self.vtQueroAlocar[recursoAtual]:
         # "encher" a mtzAlocacaoCorrente
 			  # atualizar vetor vtRecursosAlocados
-        self.vtRecursosAlocados[recursoAtual] += self.vtQueroAlocar[recursoAtual];
-        print('vtQueroAlocar: ', self.vtQueroAlocar[recursoAtual]);
-        print('pode alocar: total: ', self.vtRecursosExistentes[recursoAtual])
-        print('você pode alocar pq o total é: ', self.vtQueroAlocar[recursoAtual])
-        print(self.vtRecursosAlocados[recursoAtual]);
-        print();
+        self.vtRecursosAlocados[recursoAtual] += qtdeRecursoParaAlocar;
+        #print('vtRecursosAlocados: ', self.vtRecursosAlocados[recursoAtual]);
+        #print('pode alocar: total: ', self.vtRecursosExistentes[recursoAtual])
+        #print('você pode alocar pq o total é: ', self.vtQueroAlocar[recursoAtual])
+        #print();
       else:
+        pass;
         print('não posso alocar: total: ', self.vtRecursosExistentes[recursoAtual])
         print('pq o você quer alocar: ', self.vtQueroAlocar[recursoAtual])
         print();
