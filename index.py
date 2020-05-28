@@ -1,4 +1,4 @@
-from Dreadlock import Dreadlock;
+from Deadlock import Deadlock;
 
-dread = Dreadlock();
-dread.run();
+deadlock = Deadlock();
+deadlock.run();

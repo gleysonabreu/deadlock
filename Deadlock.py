@@ -1,13 +1,17 @@
 from random import randint
-class Dreadlock:
+class Deadlock:
 
   ##Construtor da classe;
   def __init__(self):
 
     ##Variaveis
     self.processos = 0;
-    self.recursos = 0;    
+    self.recursos = 0; 
 
+    #bonitezazinha
+    print('=' * 83);
+    print(' ' * 5, 'Deadlock');
+    print('=' * 83);
 
   ## Metodo inicializador
   def run(self):
@@ -23,7 +27,7 @@ class Dreadlock:
       self.processamentoMatriz();
       ## Pergunta se deseja continua
       res = str(input("Deseja adicionar mais recursos aos processos? (S/N): ")).strip().upper()[0];
-      
+
   def recursosExistentes(self):
     self.vtRecursosExistentes = [0] * self.recursos;
 
@@ -31,29 +35,28 @@ class Dreadlock:
       self.vtRecursosExistentes[recExistentes] = int(input("Digite o total de Recursos existentes na Posição({}): ".format(recExistentes)));
 
   def entradaDeDados(self):
-
     #pegando os valores dos inputs de processo e recursos
     totalProcess = int(input("Digite o total de processos: "));
     totalRecursos = int(input("Digite o total de recursos: "));
     ## setando os novos valores
-    self.processos = totalProcess;
+    self.processos = totalProcess; 
     self.recursos = totalRecursos;
 
     ## matriz simples
     self.vtRecursosAlocados = [0] * self.recursos;
     self.vtQueroAlocar = [0] * self.recursos;
-    
 
+    self.mtzAlocacaoCorrente = [];
+    for mtzAloc in range(0, self.processos):
+      self.mtzAlocacaoCorrente.append([0] * self.recursos);
+    
   def processamentoMatriz(self):
 
     #iniciado a matriz com colunas
     self.mtzRequisicoes = [];
-    self.mtzAlocacaoCorrente = [];
     ## criando a matriz com os processos e recursos solicitados;
     for mtzReq in range(0, self.processos):
       self.mtzRequisicoes.append([0] * self.recursos);
-    for mtzAloc in range(0, self.processos):
-      self.mtzAlocacaoCorrente.append([0] * self.recursos);
 
     ## preenchendo a matriz com os dados
     for processos in range(0, self.processos):
@@ -75,6 +78,7 @@ class Dreadlock:
         # "encher" a mtzAlocacaoCorrente
 			  # atualizar vetor vtRecursosAlocados
         self.vtRecursosAlocados[recursoAtual] += qtdeRecursoParaAlocar;
+        self.mtzAlocacaoCorrente[processoAtual][recursoAtual] += qtdeRecursoParaAlocar;
         print('Você poderá alocar os recursos ({}) mas o total que poderá armazena é ({}).\n'.format(self.vtRecursosAlocados[recursoAtual], self.vtRecursosExistentes[recursoAtual]));
       else:
         print('Não é possível alocar mais recursos');
